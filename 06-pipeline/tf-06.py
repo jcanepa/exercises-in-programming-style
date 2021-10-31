@@ -15,7 +15,7 @@ def read_file(path_to_file):
 
 def filter_chars_and_normalize(str_data):
     """
-    Takes a string and returns a copy with all nonalphanumeric 
+    Takes a string and returns a copy with all nonalphanumeric
     chars replaced by white space
     """
     pattern = re.compile('[\W_]+')
@@ -29,9 +29,9 @@ def scan(str_data):
     return str_data.split()
 
 def remove_stop_words(word_list):
-    """ 
-    Takes a list of words and returns a copy with all stop 
-    words removed 
+    """
+    Takes a list of words and returns a copy with all stop
+    words removed
     """
     with open('../stop_words.txt') as f:
         stop_words = f.read().split(',')
@@ -56,20 +56,29 @@ def sort(word_freq):
     """
     Takes a dictionary of words and their frequencies
     and returns a list of pairs where the entries are
-    sorted by frequency 
+    sorted by frequency
     """
-    return sorted(word_freq.items(), key=operator.itemgetter(1), reverse=True)
+    return sorted(
+        word_freq.items(),
+        key=operator.itemgetter(1),
+        reverse=True)
 
 def print_all(word_freqs):
     """
     Takes a list of pairs where the entries are sorted by frequency and print them recursively.
     """
-    if(len(word_freqs) > 0):
+    if (len(word_freqs) > 0):
         print(word_freqs[0][0], '-', word_freqs[0][1])
         print_all(word_freqs[1:])
 
 #
 # The main function
 #
-print_all(sort(frequencies(remove_stop_words(scan(filter_chars_and_normalize(read_file(sys.argv[1]))))))[0:25])
-
+print_all(
+    sort(
+        frequencies(
+            remove_stop_words(
+                scan(
+                    filter_chars_and_normalize(
+                        read_file(sys.argv[1]))))))
+    [0:25])
